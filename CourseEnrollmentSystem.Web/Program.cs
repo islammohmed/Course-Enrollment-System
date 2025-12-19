@@ -1,3 +1,5 @@
+using CourseEnrollmentSystem.Application.Interfaces;
+using CourseEnrollmentSystem.Application.Services;
 using CourseEnrollmentSystem.Domain.Entities;
 using CourseEnrollmentSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +11,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("CourseEnrollmentDb"));
 
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
 
 var app = builder.Build();
 
