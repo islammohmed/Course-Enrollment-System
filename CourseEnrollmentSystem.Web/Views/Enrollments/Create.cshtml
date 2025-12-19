@@ -1,0 +1,16 @@
+﻿<h2>Enroll Student</h2>
+
+<form asp-action="Create" method="post">
+    <label>Student</label><br />
+    <select name="studentId" asp-items="ViewBag.Students"></select><br />
+
+    <label>Course</label><br />
+    <select name="courseId" asp-items="ViewBag.Courses"></select><br /><br />
+
+    <button type="submit">Enroll</button>
+</form>
+
+@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+{
+    <p style="color:red">@error.ErrorMessage</p>
+}

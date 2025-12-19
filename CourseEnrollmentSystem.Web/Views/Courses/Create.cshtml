@@ -1,0 +1,16 @@
+﻿@model CourseEnrollmentSystem.Domain.Entities.Course
+
+<h2>Course</h2>
+
+<form method="post">
+    <label>Title</label><br />
+    <input asp-for="Title" /><br />
+
+    <label>Description</label><br />
+    <input asp-for="Description" /><br />
+
+    <label>Max Capacity</label><br />
+    <input asp-for="MaxCapacity" /><br /><br />
+
+    <button type="submit">Save</button>
+</form>

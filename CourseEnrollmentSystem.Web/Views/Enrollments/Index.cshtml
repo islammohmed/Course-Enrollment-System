@@ -1,0 +1,19 @@
+﻿@model IEnumerable<CourseEnrollmentSystem.Domain.Entities.Enrollment>
+
+<h2>Enrollments</h2>
+
+<a asp-action="Create">New Enrollment</a>
+
+<table border="1">
+    <tr>
+        <th>Student</th>
+        <th>Course</th>
+    </tr>
+    @foreach (var e in Model)
+    {
+        <tr>
+            <td>@e.Student.FullName</td>
+            <td>@e.Course.Title</td>
+        </tr>
+    }
+</table>

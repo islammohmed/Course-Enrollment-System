@@ -1,0 +1,22 @@
+﻿@model CourseEnrollmentSystem.Domain.Entities.Student
+
+<h2>Add Student</h2>
+
+<form asp-action="Create" method="post">
+    <label>Full Name</label><br />
+    <input asp-for="FullName" /><br />
+
+    <label>Email</label><br />
+    <input asp-for="Email" /><br />
+
+    <label>Birth Date</label><br />
+    <input asp-for="BirthDate" type="date" /><br />
+
+    <label>National ID</label><br />
+    <input asp-for="NationalId" /><br />
+
+    <label>Phone</label><br />
+    <input asp-for="PhoneNumber" /><br /><br />
+
+    <button type="submit">Save</button>
+</form>

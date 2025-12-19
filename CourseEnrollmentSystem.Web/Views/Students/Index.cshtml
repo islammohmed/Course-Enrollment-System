@@ -1,0 +1,24 @@
+﻿@model IEnumerable<CourseEnrollmentSystem.Domain.Entities.Student>
+
+<h2>Students</h2>
+
+<a asp-action="Create">Add Student</a>
+
+<table border="1">
+    <tr>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var student in Model)
+    {
+        <tr>
+            <td>@student.FullName</td>
+            <td>@student.Email</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@student.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@student.Id">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
