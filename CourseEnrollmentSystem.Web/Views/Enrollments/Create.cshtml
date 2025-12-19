@@ -1,16 +1,37 @@
 ﻿<h2>Enroll Student</h2>
-
 <form asp-action="Create" method="post">
     <label>Student</label><br />
-    <select name="studentId" asp-items="ViewBag.Students"></select><br />
-
+    <select name="studentId" asp-items="ViewBag.Students">
+        <option value="">-- Select Student --</option>
+    </select><br />
     <label>Course</label><br />
-    <select name="courseId" asp-items="ViewBag.Courses"></select><br /><br />
-
+    <select name="courseId" asp-items="ViewBag.Courses">
+        <option value="">-- Select Course --</option>
+    </select><br /><br />
+    <p id="slotsInfo"></p>
     <button type="submit">Enroll</button>
 </form>
-
 @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
 {
     <p style="color:red">@error.ErrorMessage</p>
+}
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('select[name="courseId"]').change(function () {
+                const courseId = $(this).val();
+                if (!courseId) {
+                    $('#slotsInfo').text('');
+                    return;
+                }
+                $.get('/Enrollments/GetAvailableSlots', { courseId: courseId })
+                    .done(function (data) {
+                        $('#slotsInfo').text('Available slots: ' + data);
+                    })
+                    .fail(function () {
+                        $('#slotsInfo').text('Error loading slots');
+                    });
+            });
+        });
+    </script>
 }

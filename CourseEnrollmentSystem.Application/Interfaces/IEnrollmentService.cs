@@ -11,5 +11,6 @@ namespace CourseEnrollmentSystem.Application.Interfaces
     {
         void EnrollStudent(int studentId, int courseId);
         IEnumerable<Enrollment> GetAll();
+        int GetAvailableSlots(int courseId);
     }
 }

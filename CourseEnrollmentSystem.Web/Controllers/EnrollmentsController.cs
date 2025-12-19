@@ -52,5 +52,13 @@ namespace CourseEnrollmentSystem.Web.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public IActionResult GetAvailableSlots(int courseId)
+        {
+            var slots = _enrollmentService.GetAvailableSlots(courseId);
+            return Json(slots);
+        }
+
     }
 }

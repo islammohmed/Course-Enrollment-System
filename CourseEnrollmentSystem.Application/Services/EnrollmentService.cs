@@ -55,5 +55,16 @@ namespace CourseEnrollmentSystem.Application.Services
             _context.Enrollments.Add(enrollment);
             _context.SaveChanges();
         }
+
+        public int GetAvailableSlots(int courseId)
+        {
+            var course = _context.Courses.Find(courseId);
+            if (course == null) return 0;
+
+            int enrolledCount = _context.Enrollments
+                .Count(e => e.CourseId == courseId);
+
+            return course.MaxCapacity - enrolledCount;
+        }
     }
 }
