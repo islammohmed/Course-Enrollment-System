@@ -1,16 +1,47 @@
 ﻿@model CourseEnrollmentSystem.Domain.Entities.Course
 
-<h2>Course</h2>
+@{
+    ViewData["Title"] = "Add Course";
+}
 
-<form method="post">
-    <label>Title</label><br />
-    <input asp-for="Title" /><br />
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Add New Course</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="Title" class="form-label">Course Title <span class="text-danger">*</span></label>
+                            <input asp-for="Title" class="form-control" placeholder="Enter course title" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
 
-    <label>Description</label><br />
-    <input asp-for="Description" /><br />
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Description</label>
+                            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter course description (optional)"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
 
-    <label>Max Capacity</label><br />
-    <input asp-for="MaxCapacity" /><br /><br />
+                        <div class="mb-3">
+                            <label asp-for="MaxCapacity" class="form-label">Maximum Capacity <span class="text-danger">*</span></label>
+                            <input asp-for="MaxCapacity" class="form-control" type="number" min="1" placeholder="Enter max capacity" />
+                            <span asp-validation-for="MaxCapacity" class="text-danger"></span>
+                        </div>
 
-    <button type="submit">Save</button>
-</form>
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Save Course</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

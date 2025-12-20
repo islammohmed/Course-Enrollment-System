@@ -1,7 +1,59 @@
-﻿<h2>Course Enrollment System</h2>
+﻿@{
+    ViewData["Title"] = "Home";
+}
 
-<ul>
-    <li><a asp-controller="Students" asp-action="Index">Students</a></li>
-    <li><a asp-controller="Courses" asp-action="Index">Courses</a></li>
-    <li><a asp-controller="Enrollments" asp-action="Index">Enrollments</a></li>
-</ul>
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 text-primary">Course Enrollment System</h1>
+        <p class="lead text-muted">Manage students, courses, and enrollments efficiently</p>
+        <hr class="my-4" />
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-primary">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-people-fill text-primary" viewBox="0 0 16 16">
+                            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Students</h3>
+                    <p class="card-text">Add, edit, delete, and manage student information</p>
+                    <a asp-controller="Students" asp-action="Index" class="btn btn-primary">Manage Students</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-success">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-book-fill text-success" viewBox="0 0 16 16">
+                            <path d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Courses</h3>
+                    <p class="card-text">Create and manage courses with capacity limits</p>
+                    <a asp-controller="Courses" asp-action="Index" class="btn btn-success">Manage Courses</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-info">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-card-checklist text-info" viewBox="0 0 16 16">
+                            <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                            <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Enrollments</h3>
+                    <p class="card-text">Enroll students in courses and track enrollments</p>
+                    <a asp-controller="Enrollments" asp-action="Index" class="btn btn-info">Manage Enrollments</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,22 +1,59 @@
 ﻿@model CourseEnrollmentSystem.Domain.Entities.Student
 
-<h2>Add Student</h2>
+@{
+    ViewData["Title"] = "Add Student";
+}
 
-<form asp-action="Create" method="post">
-    <label>Full Name</label><br />
-    <input asp-for="FullName" /><br />
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Add New Student</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div class="mb-3">
+                            <label asp-for="FullName" class="form-label">Full Name <span class="text-danger">*</span></label>
+                            <input asp-for="FullName" class="form-control" placeholder="Enter full name" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
 
-    <label>Email</label><br />
-    <input asp-for="Email" /><br />
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Email <span class="text-danger">*</span></label>
+                            <input asp-for="Email" class="form-control" type="email" placeholder="example@email.com" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
 
-    <label>Birth Date</label><br />
-    <input asp-for="BirthDate" type="date" /><br />
+                        <div class="mb-3">
+                            <label asp-for="BirthDate" class="form-label">Birth Date <span class="text-danger">*</span></label>
+                            <input asp-for="BirthDate" class="form-control" type="date" />
+                            <span asp-validation-for="BirthDate" class="text-danger"></span>
+                        </div>
 
-    <label>National ID</label><br />
-    <input asp-for="NationalId" /><br />
+                        <div class="mb-3">
+                            <label asp-for="NationalId" class="form-label">National ID <span class="text-danger">*</span></label>
+                            <input asp-for="NationalId" class="form-control" placeholder="14 digits" maxlength="14" />
+                            <span asp-validation-for="NationalId" class="text-danger"></span>
+                        </div>
 
-    <label>Phone</label><br />
-    <input asp-for="PhoneNumber" /><br /><br />
+                        <div class="mb-3">
+                            <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="11 digits (optional)" maxlength="11" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
 
-    <button type="submit">Save</button>
-</form>
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Save Student</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

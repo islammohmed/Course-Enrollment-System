@@ -1,7 +1,17 @@
 ﻿@model CourseEnrollmentSystem.Domain.Entities.Course
 
-<div style="border:1px solid #ccc; padding:10px; margin:10px 0;">
-    <strong>@Model.Title</strong><br />
-    Capacity: @Model.MaxCapacity<br />
-    Description: @Model.Description
+<div class="card shadow-sm h-100">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">@Model.Title</h5>
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+            <strong>Description:</strong><br />
+            @(string.IsNullOrEmpty(Model.Description) ? "No description available" : Model.Description)
+        </p>
+        <p class="card-text">
+            <strong>Max Capacity:</strong> 
+            <span class="badge bg-info">@Model.MaxCapacity students</span>
+        </p>
+    </div>
 </div>

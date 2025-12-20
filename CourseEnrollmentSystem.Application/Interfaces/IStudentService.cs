@@ -10,9 +10,9 @@ namespace CourseEnrollmentSystem.Application.Interfaces
     public interface IStudentService
     {
         IEnumerable<Student> GetAll();
-        Student GetById(int id);
-        void Add(Student student);
-        void Update(Student student);
+        Student? GetById(int id);
+        bool Add(Student student, out string errorMessage);
+        bool Update(Student student, out string errorMessage);
         void Delete(int id);
     }
 }

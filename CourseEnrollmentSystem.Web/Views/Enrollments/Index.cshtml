@@ -1,19 +1,42 @@
 ﻿@model IEnumerable<CourseEnrollmentSystem.Domain.Entities.Enrollment>
 
-<h2>Enrollments</h2>
+@{
+    ViewData["Title"] = "Enrollments";
+}
 
-<a asp-action="Create">New Enrollment</a>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">Enrollments Management</h2>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> New Enrollment
+        </a>
+    </div>
 
-<table border="1">
-    <tr>
-        <th>Student</th>
-        <th>Course</th>
-    </tr>
-    @foreach (var e in Model)
-    {
-        <tr>
-            <td>@e.Student.FullName</td>
-            <td>@e.Course.Title</td>
-        </tr>
-    }
-</table>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Student Email</th>
+                            <th>Course Title</th>
+                            <th>Course Capacity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var e in Model)
+                        {
+                            <tr>
+                                <td><strong>@e.Student.FullName</strong></td>
+                                <td>@e.Student.Email</td>
+                                <td><span class="badge bg-info text-dark">@e.Course.Title</span></td>
+                                <td>@e.Course.MaxCapacity</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

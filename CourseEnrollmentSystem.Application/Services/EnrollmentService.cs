@@ -5,43 +5,38 @@ using System.Text;
 using System.Threading.Tasks;
 using CourseEnrollmentSystem.Application.Interfaces;
 using CourseEnrollmentSystem.Domain.Entities;
-using CourseEnrollmentSystem.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace CourseEnrollmentSystem.Application.Services
 {
     public class EnrollmentService : IEnrollmentService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IEnrollmentRepository _enrollmentRepository;
+        private readonly ICourseRepository _courseRepository;
 
-        public EnrollmentService(ApplicationDbContext context)
+        public EnrollmentService(IEnrollmentRepository enrollmentRepository, ICourseRepository courseRepository)
         {
-            _context = context;
+            _enrollmentRepository = enrollmentRepository;
+            _courseRepository = courseRepository;
         }
 
         public IEnumerable<Enrollment> GetAll()
         {
-            return _context.Enrollments
-                .Include(e => e.Student)
-                .Include(e => e.Course)
-                .ToList();
+            return _enrollmentRepository.GetAll();
         }
 
         public void EnrollStudent(int studentId, int courseId)
         {
             // Duplicate enrollment check
-            bool alreadyEnrolled = _context.Enrollments
-                .Any(e => e.StudentId == studentId && e.CourseId == courseId);
-
-            if (alreadyEnrolled)
+            if (_enrollmentRepository.IsStudentEnrolledInCourse(studentId, courseId))
+            {
                 throw new Exception("Student already enrolled in this course");
+            }
 
-            var course = _context.Courses.Find(courseId);
+            var course = _courseRepository.GetById(courseId);
             if (course == null)
                 throw new Exception("Course not found");
 
-            int currentCount = _context.Enrollments
-                .Count(e => e.CourseId == courseId);
+            int currentCount = _enrollmentRepository.GetByCourseId(courseId).Count();
 
             if (currentCount >= course.MaxCapacity)
                 throw new Exception("Course is full");
@@ -52,17 +47,16 @@ namespace CourseEnrollmentSystem.Application.Services
                 CourseId = courseId
             };
 
-            _context.Enrollments.Add(enrollment);
-            _context.SaveChanges();
+            _enrollmentRepository.Add(enrollment);
+            _enrollmentRepository.SaveChanges();
         }
 
         public int GetAvailableSlots(int courseId)
         {
-            var course = _context.Courses.Find(courseId);
+            var course = _courseRepository.GetById(courseId);
             if (course == null) return 0;
 
-            int enrolledCount = _context.Enrollments
-                .Count(e => e.CourseId == courseId);
+            int enrolledCount = _enrollmentRepository.GetByCourseId(courseId).Count();
 
             return course.MaxCapacity - enrolledCount;
         }

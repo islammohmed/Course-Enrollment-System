@@ -3,55 +3,65 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CourseEnrollmentSystem.Infrastructure.Data;
 using CourseEnrollmentSystem.Application.Interfaces;
 using CourseEnrollmentSystem.Domain.Entities;
-
-
 
 namespace CourseEnrollmentSystem.Application.Services
 {
     public class StudentService : IStudentService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IStudentRepository _studentRepository;
 
-        public StudentService(ApplicationDbContext context)
+        public StudentService(IStudentRepository studentRepository)
         {
-            _context = context;
+            _studentRepository = studentRepository;
         }
 
         public IEnumerable<Student> GetAll()
         {
-            return _context.Students.ToList();
+            return _studentRepository.GetAll();
         }
 
-        public Student GetById(int id)
+        public Student? GetById(int id)
         {
-            return _context.Students.Find(id);
+            return _studentRepository.GetById(id);
         }
 
-        public void Add(Student student)
+        public bool Add(Student student, out string errorMessage)
         {
-            if (_context.Students.Any(s => s.Email == student.Email))
-                throw new Exception("Email already exists");
+            errorMessage = string.Empty;
+            
+            if (_studentRepository.EmailExists(student.Email))
+            {
+                errorMessage = "A student with this email already exists. Please use a different email address.";
+                return false;
+            }
 
-            _context.Students.Add(student);
-            _context.SaveChanges();
+            _studentRepository.Add(student);
+            _studentRepository.SaveChanges();
+            return true;
         }
 
-        public void Update(Student student)
+        public bool Update(Student student, out string errorMessage)
         {
-            _context.Students.Update(student);
-            _context.SaveChanges();
+            errorMessage = string.Empty;
+            
+            var existingStudent = _studentRepository.GetByEmail(student.Email);
+            if (existingStudent != null && existingStudent.Id != student.Id)
+            {
+                errorMessage = "A student with this email already exists. Please use a different email address.";
+                return false;
+            }
+
+            _studentRepository.Update(student);
+            _studentRepository.SaveChanges();
+            return true;
         }
 
         public void Delete(int id)
         {
-            var student = _context.Students.Find(id);
-            if (student == null) return;
-
-            _context.Students.Remove(student);
-            _context.SaveChanges();
+            _studentRepository.Delete(id);
+            _studentRepository.SaveChanges();
         }
     }
 }

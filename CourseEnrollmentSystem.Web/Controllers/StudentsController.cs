@@ -31,7 +31,13 @@ namespace CourseEnrollmentSystem.Web.Controllers
             if (!ModelState.IsValid)
                 return View(student);
 
-            _studentService.Add(student);
+            if (!_studentService.Add(student, out string errorMessage))
+            {
+                ModelState.AddModelError("Email", errorMessage);
+                return View(student);
+            }
+
+            TempData["SuccessMessage"] = "Student added successfully!";
             return RedirectToAction(nameof(Index));
         }
 
@@ -50,7 +56,13 @@ namespace CourseEnrollmentSystem.Web.Controllers
             if (!ModelState.IsValid)
                 return View(student);
 
-            _studentService.Update(student);
+            if (!_studentService.Update(student, out string errorMessage))
+            {
+                ModelState.AddModelError("Email", errorMessage);
+                return View(student);
+            }
+
+            TempData["SuccessMessage"] = "Student updated successfully!";
             return RedirectToAction(nameof(Index));
         }
 

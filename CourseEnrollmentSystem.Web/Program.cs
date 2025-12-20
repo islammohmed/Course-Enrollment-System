@@ -2,6 +2,7 @@ using CourseEnrollmentSystem.Application.Interfaces;
 using CourseEnrollmentSystem.Application.Services;
 using CourseEnrollmentSystem.Domain.Entities;
 using CourseEnrollmentSystem.Infrastructure.Data;
+using CourseEnrollmentSystem.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("CourseEnrollmentDb"));
 
+// Register Repositories
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
+
+// Register Services
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
@@ -45,57 +52,57 @@ using (var scope = app.Services.CreateScope())
     context.Courses.AddRange(
         new Course
         {
-            Title = "c#",
-            Description = "Intro to c#",
-            MaxCapacity = 10
+            Title = "C# Fundamentals",
+            Description = "Learn the basics of C# programming, syntax, and object-oriented principles.",
+            MaxCapacity = 20
         },
         new Course
         {
-            Title = "SQL",
-            Description = "Intro to SQL",
+            Title = "ASP.NET Core MVC",
+            Description = "Build modern web applications using ASP.NET Core MVC and Razor views.",
+            MaxCapacity = 25
+        },
+        new Course
+        {
+            Title = "Entity Framework Core",
+            Description = "Work with databases using EF Core, LINQ, and migrations.",
+            MaxCapacity = 18
+        },
+        new Course
+        {
+            Title = "SQL Fundamentals",
+            Description = "Understand relational databases, SQL queries, joins, and constraints.",
+            MaxCapacity = 5
+        },
+        new Course
+        {
+            Title = "Advanced SQL",
+            Description = "Deep dive into stored procedures, indexes, performance tuning, and views.",
             MaxCapacity = 15
         },
         new Course
         {
-            Title = "SQL",
-            Description = "Intro to SQL",
-            MaxCapacity = 15
+            Title = "HTML & CSS",
+            Description = "Create responsive web pages using modern HTML5 and CSS3 techniques.",
+            MaxCapacity = 35
         },
         new Course
         {
-            Title = "SQL",
-            Description = "Intro to SQL",
-            MaxCapacity = 15
+            Title = "JavaScript Basics",
+            Description = "Learn JavaScript fundamentals including variables, functions, and DOM manipulation.",
+            MaxCapacity = 30
         },
         new Course
         {
-            Title = "SQL",
-            Description = "Intro to SQL",
-            MaxCapacity = 15
+            Title = "RESTful APIs",
+            Description = "Design and consume REST APIs with proper HTTP methods and status codes.",
+            MaxCapacity = 20
         },
         new Course
         {
-            Title = "SQL",
-            Description = "Intro to SQL",
-            MaxCapacity = 15
-        },
-        new Course
-        {
-            Title = "SQL",
-            Description = "Intro to SQL",
-            MaxCapacity = 15
-        },
-        new Course
-        {
-            Title = "SQL",
-            Description = "Intro to SQL",
-            MaxCapacity = 15
-        },
-        new Course
-        {
-            Title = "SQL",
-            Description = "Intro to SQL",
-            MaxCapacity = 15
+            Title = "Git & GitHub",
+            Description = "Version control fundamentals using Git and collaboration with GitHub.",
+            MaxCapacity = 40
         }
     );
 

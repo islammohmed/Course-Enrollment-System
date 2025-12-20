@@ -5,48 +5,44 @@ using System.Text;
 using System.Threading.Tasks;
 using CourseEnrollmentSystem.Application.Interfaces;
 using CourseEnrollmentSystem.Domain.Entities;
-using CourseEnrollmentSystem.Infrastructure.Data;
 
 namespace CourseEnrollmentSystem.Application.Services
 {
     public class CourseService : ICourseService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ICourseRepository _courseRepository;
 
-        public CourseService(ApplicationDbContext context)
+        public CourseService(ICourseRepository courseRepository)
         {
-            _context = context;
+            _courseRepository = courseRepository;
         }
 
         public IEnumerable<Course> GetAll()
         {
-            return _context.Courses.ToList();
+            return _courseRepository.GetAll();
         }
 
-        public Course GetById(int id)
+        public Course? GetById(int id)
         {
-            return _context.Courses.Find(id);
+            return _courseRepository.GetById(id);
         }
 
         public void Add(Course course)
         {
-            _context.Courses.Add(course);
-            _context.SaveChanges();
+            _courseRepository.Add(course);
+            _courseRepository.SaveChanges();
         }
 
         public void Update(Course course)
         {
-            _context.Courses.Update(course);
-            _context.SaveChanges();
+            _courseRepository.Update(course);
+            _courseRepository.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var course = _context.Courses.Find(id);
-            if (course == null) return;
-
-            _context.Courses.Remove(course);
-            _context.SaveChanges();
+            _courseRepository.Delete(id);
+            _courseRepository.SaveChanges();
         }
     }
 }
