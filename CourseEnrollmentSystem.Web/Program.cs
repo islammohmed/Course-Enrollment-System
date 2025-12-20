@@ -54,6 +54,48 @@ using (var scope = app.Services.CreateScope())
             Title = "SQL",
             Description = "Intro to SQL",
             MaxCapacity = 15
+        },
+        new Course
+        {
+            Title = "SQL",
+            Description = "Intro to SQL",
+            MaxCapacity = 15
+        },
+        new Course
+        {
+            Title = "SQL",
+            Description = "Intro to SQL",
+            MaxCapacity = 15
+        },
+        new Course
+        {
+            Title = "SQL",
+            Description = "Intro to SQL",
+            MaxCapacity = 15
+        },
+        new Course
+        {
+            Title = "SQL",
+            Description = "Intro to SQL",
+            MaxCapacity = 15
+        },
+        new Course
+        {
+            Title = "SQL",
+            Description = "Intro to SQL",
+            MaxCapacity = 15
+        },
+        new Course
+        {
+            Title = "SQL",
+            Description = "Intro to SQL",
+            MaxCapacity = 15
+        },
+        new Course
+        {
+            Title = "SQL",
+            Description = "Intro to SQL",
+            MaxCapacity = 15
         }
     );
 

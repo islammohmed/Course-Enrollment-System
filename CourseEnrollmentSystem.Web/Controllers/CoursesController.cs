@@ -1,6 +1,7 @@
 ﻿using CourseEnrollmentSystem.Application.Interfaces;
 using CourseEnrollmentSystem.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CourseEnrollmentSystem.Web.Controllers
 {
@@ -13,10 +14,21 @@ namespace CourseEnrollmentSystem.Web.Controllers
             _courseService = courseService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            var courses = _courseService.GetAll();
-            return View(courses);
+            int pageSize = 5;
+
+            var courses = _courseService.GetAll().ToList();
+
+            var pagedCourses = courses
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = (int)Math.Ceiling(courses.Count / (double)pageSize);
+
+            return View(pagedCourses);
         }
 
         public IActionResult Create()

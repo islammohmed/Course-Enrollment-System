@@ -10,6 +10,7 @@
         <th>Capacity</th>
         <th>Actions</th>
     </tr>
+
     @foreach (var course in Model)
     {
         <tr>
@@ -22,3 +23,28 @@
         </tr>
     }
 </table>
+
+<br />
+
+<div>
+    @if (ViewBag.CurrentPage > 1)
+    {
+        <a asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)">Previous</a>
+    }
+
+    Page @ViewBag.CurrentPage of @ViewBag.TotalPages
+
+    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+    {
+        <a asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)">Next</a>
+    }
+</div>
+
+<hr />
+
+<h3>Course Details</h3>
+
+@foreach (var course in Model)
+{
+    @await Html.PartialAsync("_CourseDetails", course)
+}
